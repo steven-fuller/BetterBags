@@ -12,6 +12,9 @@ local const = addon:GetModule('Constants')
 ---@class EquipmentSets: AceModule
 local equipmentSets = addon:GetModule('EquipmentSets')
 
+---@class ItemTooltips: AceModule
+local itemTooltips = addon:GetModule('ItemTooltips')
+
 ---@class Debug: AceModule
 local debug = addon:GetModule('Debug')
 
@@ -19,6 +22,7 @@ local debug = addon:GetModule('Debug')
 ---@field itemInfo ExpandedItemInfo
 ---@field containerInfo ContainerItemInfo
 ---@field questInfo ItemQuestInfo
+---@field tooltipData TooltipData
 ---@field bagid number
 ---@field slotid number
 ---@field isItemEmpty boolean
@@ -182,6 +186,7 @@ function items:AttachItemInfo(data)
   local effectiveIlvl, isPreview, baseIlvl = GetDetailedItemLevelInfo(itemID)
   data.containerInfo = C_Container.GetContainerItemInfo(bagid, slotid)
   data.questInfo = C_Container.GetContainerItemQuestInfo(bagid, slotid)
+  data.tooltipData = C_TooltipInfo.GetBagItem(bagid, slotid)
   data.itemInfo = {
     itemID = itemID,
     itemGUID = C_Item.GetItemGUID(itemLocation),
@@ -207,6 +212,7 @@ function items:AttachItemInfo(data)
     baseIlvl = baseIlvl --[[@as number]],
     itemIcon = C_Item.GetItemIconByID(itemID),
     isBound = C_Item.IsBound(itemLocation),
+    binding = itemTooltips:GetItemBinding(data.tooltipData) --[[@as Enum.TooltipDataItemBinding]],
     isLocked = C_Item.IsLocked(itemLocation),
     isNewItem = C_NewItems.IsNewItem(bagid, slotid),
     currentItemCount = C_Item.GetStackCount(itemLocation),

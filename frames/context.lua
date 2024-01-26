@@ -126,6 +126,30 @@ function context:CreateContextMenu(bag)
         end
       },
       {
+        text = L:G("Unbound"),
+        tooltipTitle = L:G("Unbound"),
+        tooltipText = L:G("If enabled, will categorize unbound items by binding type (BoE, BoU, BtA)."),
+        keepShownOnClick = true,
+        checked = function() return database:GetCategoryFilter(bag.kind, "Unbound") end,
+        func = function()
+          database:SetCategoryFilter(bag.kind, "Unbound", not database:GetCategoryFilter(bag.kind, "Unbound"))
+          bag:Wipe()
+          bag:Refresh()
+        end
+      },
+      {
+        text = L:G("Soulbound"),
+        tooltipTitle = L:G("Soulbound"),
+        tooltipText = L:G("If enabled, soulbound items are placed in their own section."),
+        keepShownOnClick = true,
+        checked = function() return database:GetCategoryFilter(bag.kind, "Soulbound") end,
+        func = function()
+          database:SetCategoryFilter(bag.kind, "Soulbound", not database:GetCategoryFilter(bag.kind, "Soulbound"))
+          bag:Wipe()
+          bag:Refresh()
+        end
+      },
+      {
         text = L:G("Type"),
         tooltipTitle = L:G("Type"),
         tooltipText = L:G("If enabled, will categorize items by their auction house type."),

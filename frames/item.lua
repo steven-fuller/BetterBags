@@ -215,6 +215,27 @@ function itemProto:GetCategory()
     return self.data.itemInfo.category
   end
 
+  -- Category for non-soulbound, but bindable items (BoA, BoE, BoU).
+  if database:GetCategoryFilter(self.kind, "Unbound") then
+    local binding = self.data.itemInfo.binding
+    if binding then
+      if (binding == Enum.TooltipDataItemBinding.BindOnEquip) or (binding == Enum.TooltipDataItemBinding.BindOnUse) or (binding == Enum.TooltipDataItemBinding.Account) then
+        self.data.itemInfo.category = const.BINDING_MAP[binding] --[[@as string]]
+        return self.data.itemInfo.category
+      end
+    end
+  end
+
+  -- Category for soulbound (but not account bound) items 
+  if database:GetCategoryFilter(self.kind, "Soulbound") then
+    if self.data.itemInfo.binding then
+      if self.data.itemInfo.binding == Enum.TooltipDataItemBinding.Soulbound then
+        self.data.itemInfo.category = const.BINDING_MAP[self.data.itemInfo.binding] --[[@as string]]
+        return self.data.itemInfo.category
+      end
+    end
+  end
+
   if not self.kind then return L:G('Everything') end
   -- TODO(lobato): Handle cases such as new items here instead of in the layout engine.
   if self.data.containerInfo.quality == Enum.ItemQuality.Poor then

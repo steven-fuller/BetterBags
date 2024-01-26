@@ -39,6 +39,7 @@ core\hooks.lua
 theme\masque.lua
 
 data\equipmentsets.lua
+data\itemtooltips.lua
 data\items.lua
 data\categories.lua
 

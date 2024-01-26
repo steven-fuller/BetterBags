@@ -89,6 +89,8 @@ function config:GetBagOptions(kind)
         values = {
           ["RecentItems"] = L:G("Recent Items"),
           ["Type"] = L:G("Type"),
+          ["Soulbound"] = L:G("Soulbound"),
+          ["Unbound"] = L:G("Unbound"),
           ["Expansion"] = L:G("Expansion"),
           ["TradeSkill"] = L:G("Trade Skill")
         }
