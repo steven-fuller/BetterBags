@@ -138,7 +138,7 @@ const.EXPANSION_TYPE = {
 }
 
 ---@enum TooltipDataItemBinding
-const.TOOLTIPDATA_ITEM_BINDING = {
+const.TOOLTIP_DATA_ITEM_BINDING = {
   [Enum.TooltipDataItemBinding.Quest] = 0,
   [Enum.TooltipDataItemBinding.Account] = 1,
   [Enum.TooltipDataItemBinding.BnetAccount] = 2,
@@ -151,7 +151,7 @@ const.TOOLTIPDATA_ITEM_BINDING = {
 }
 
 ---@enum TooltipDataLineType
-const.TOOLTIPDATA_LINE_TYPE = {
+const.TOOLTIP_DATA_LINE_TYPE = {
   [Enum.TooltipDataLineType.NestedBlock] = 19,
   [Enum.TooltipDataLineType.ItemBinding] = 20,
 }
