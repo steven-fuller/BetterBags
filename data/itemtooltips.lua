@@ -38,16 +38,16 @@ const.TOOLTIP_DATA_LINE_TYPE = {
 ---@class BindingMap
 ---@type table<number, string>
 const.BINDING_MAP = {
-	[Enum.TooltipDataItemBinding.Quest] = "Quest",
-	[Enum.TooltipDataItemBinding.Account] = "Account Bound",
-	[Enum.TooltipDataItemBinding.BnetAccount] = "BNetAccount", -- Obsolete
-	[Enum.TooltipDataItemBinding.Soulbound] = "Soulbound",
-	[Enum.TooltipDataItemBinding.BindToAccount] = "Bind to Account", 
-	[Enum.TooltipDataItemBinding.BindToBnetAccount] = "Bind to BNet Account", -- Obsolete
-	[Enum.TooltipDataItemBinding.BindOnPickup] = "Bind on Pickup",
-	[Enum.TooltipDataItemBinding.BindOnEquip] = "Bind on Equip",
-	[Enum.TooltipDataItemBinding.BindOnUse] = "Bind on Use",
-  }
+  [Enum.TooltipDataItemBinding.Quest] = "Quest",
+  [Enum.TooltipDataItemBinding.Account] = "Account Bound",
+  [Enum.TooltipDataItemBinding.BnetAccount] = "BNetAccount", -- Obsolete
+  [Enum.TooltipDataItemBinding.Soulbound] = "Soulbound",
+  [Enum.TooltipDataItemBinding.BindToAccount] = "Bind to Account", 
+  [Enum.TooltipDataItemBinding.BindToBnetAccount] = "Bind to BNet Account", -- Obsolete
+  [Enum.TooltipDataItemBinding.BindOnPickup] = "Bind on Pickup",
+  [Enum.TooltipDataItemBinding.BindOnEquip] = "Bind on Equip",
+  [Enum.TooltipDataItemBinding.BindOnUse] = "Bind on Use",
+}
 
 function itemTooltips:OnInitialize()
   --dataInstanceIDtobagAndSlot = {} -- place to store dataInstanceID if we need to refresh
@@ -78,17 +78,17 @@ end
 ---@return Enum.TooltipDataItemBinding|nil
 function itemTooltips:GetItemBindingFromTooltipData(tooltipData)
   for i = 2, 6 do  -- small asumption on where binding shows
-		local line = tooltipData.lines[i]
-		if (not line) then
-			break
-		end
-		if line.type == Enum.TooltipDataLineType.NestedBlock then
-			return nil
-		end
-		if line.type == Enum.TooltipDataLineType.ItemBinding then
-			return line.bonding
-		end
-	end
+    local line = tooltipData.lines[i]
+    if (not line) then
+      break
+    end
+    if line.type == Enum.TooltipDataLineType.NestedBlock then
+      return nil
+    end
+    if line.type == Enum.TooltipDataLineType.ItemBinding then
+      return line.bonding
+    end
+  end
   return nil
 end
 
