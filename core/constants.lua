@@ -137,25 +137,25 @@ const.EXPANSION_TYPE = {
   LE_EXPANSION_DRAGONFLIGHT = 9,
 }
 
----@enum TooltipDataItemBinding
-const.TOOLTIP_DATA_ITEM_BINDING = {
-  [Enum.TooltipDataItemBinding.Quest] = 0,
-  [Enum.TooltipDataItemBinding.Account] = 1,
-  [Enum.TooltipDataItemBinding.BnetAccount] = 2,
-  [Enum.TooltipDataItemBinding.Soulbound] = 3,
-  [Enum.TooltipDataItemBinding.BindToAccount] = 4,
-  [Enum.TooltipDataItemBinding.BindToBnetAccount] = 5,
-  [Enum.TooltipDataItemBinding.BindOnPickup] = 6,
-  [Enum.TooltipDataItemBinding.BindOnEquip] = 7,
-  [Enum.TooltipDataItemBinding.BindOnUse] = 8,
-}
+---@enum ItemBinding
+const.ITEM_BINDING = {
+	Account = L:G("Account Bound"),
+	Soulbound = L:G("Soulbound"),
+	BindOnEquip = L:G("Bind on Equip"),
+	BindOnUse = L:G("Bind on Use"),
+  }
 
----@enum TooltipDataLineType
-const.TOOLTIP_DATA_LINE_TYPE = {
-  [Enum.TooltipDataLineType.NestedBlock] = 19,
-  [Enum.TooltipDataLineType.ItemBinding] = 20,
+---@enum ItemBind
+const.ITEM_BIND = { 
+  [Enum.ItemBind.None] = 0,
+  [Enum.ItemBind.OnAcquire] = 1,
+  [Enum.ItemBind.OnEquip] = 2,
+  [Enum.ItemBind.OnUse] = 3,
+  [Enum.ItemBind.Quest] = 4,
+  [Enum.ItemBind.Unused1] = 5, 
+  [Enum.ItemBind.Unused2] = 6,
 }
-
+ 
 const.OFFSETS = {
   -- This is the offset from the top of the bag window to the start of the
   -- content frame.
@@ -264,20 +264,6 @@ const.TRADESKILL_MAP = {
 	[17] = GetItemSubClassInfo(Enum.ItemClass.Tradegoods, 17), -- "Explosives and Devices (OBSOLETE)"
 	[18] = GetItemSubClassInfo(Enum.ItemClass.Tradegoods, 18), -- "Optional Reagents"
 	[19] = GetItemSubClassInfo(Enum.ItemClass.Tradegoods, 19), -- "Finishing Reagents"
-}
-
----@class BindingMap
----@type table<number, string>
-const.BINDING_MAP = {
-  [Enum.TooltipDataItemBinding.Quest] = L:G("Quest"),
-  [Enum.TooltipDataItemBinding.Account] = L:G("Account Bound"),
-  [Enum.TooltipDataItemBinding.BnetAccount] = L:G("BNetAccount"), -- Obsolete
-  [Enum.TooltipDataItemBinding.Soulbound] = L:G("Soulbound"),
-  [Enum.TooltipDataItemBinding.BindToAccount] = L:G("Bind on Account"), -- Obsolete
-  [Enum.TooltipDataItemBinding.BindToBnetAccount] = L:G("Bind to BNet Account"), -- Obsolete
-  [Enum.TooltipDataItemBinding.BindOnPickup] = L:G("Bind on Pickup"),
-  [Enum.TooltipDataItemBinding.BindOnEquip] = L:G("Bind on Equip"),
-  [Enum.TooltipDataItemBinding.BindOnUse] = L:G("Bind on Use"),
 }
 
 ---@class CustomCategoryFilter

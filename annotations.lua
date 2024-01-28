@@ -186,7 +186,7 @@ function EquipmentManager_UnpackLocation(location) end
 ---@field baseIlvl number
 ---@field itemIcon? number
 ---@field isBound boolean
----@field binding Enum.TooltipDataItemBinding
+---@field binding Enum.ItemBinding|nil
 ---@field isLocked boolean
 ---@field isNewItem boolean
 ---@field currentItemCount number

@@ -215,27 +215,6 @@ function itemProto:GetCategory()
     return self.data.itemInfo.category
   end
 
-  -- Category for non-soulbound, but bindable items (BoA, BoE, BoU).
-  if database:GetCategoryFilter(self.kind, "Unbound") then
-    local binding = self.data.itemInfo.binding
-    if binding then
-      if (binding == Enum.TooltipDataItemBinding.BindOnEquip) or (binding == Enum.TooltipDataItemBinding.BindOnUse) or (binding == Enum.TooltipDataItemBinding.Account) then
-        self.data.itemInfo.category = const.BINDING_MAP[binding] --[[@as string]]
-        return self.data.itemInfo.category
-      end
-    end
-  end
-
-  -- Category for soulbound (but not account bound) items 
-  if database:GetCategoryFilter(self.kind, "Soulbound") then
-    if self.data.itemInfo.binding then
-      if self.data.itemInfo.binding == Enum.TooltipDataItemBinding.Soulbound then
-        self.data.itemInfo.category = const.BINDING_MAP[self.data.itemInfo.binding] --[[@as string]]
-        return self.data.itemInfo.category
-      end
-    end
-  end
-
   if not self.kind then return L:G('Everything') end
   -- TODO(lobato): Handle cases such as new items here instead of in the layout engine.
   if self.data.containerInfo.quality == Enum.ItemQuality.Poor then
@@ -245,12 +224,34 @@ function itemProto:GetCategory()
 
   local category = ""
 
+  -- Category for non-soulbound, but bindable items (BoA, BoE, BoU).
+  if database:GetCategoryFilter(self.kind, "Unbound") then
+    local binding = self.data.itemInfo.binding
+    if binding then
+      if (binding == const.ITEM_BINDING.BindOnEquip) or (binding == const.ITEM_BINDING.BindOnUse) or (binding == const.ITEM_BINDING.Account) then
+        category = self.data.itemInfo.binding
+      end
+    end
+  end
+  
+  -- Category for soulbound (but not account bound) items 
+  if database:GetCategoryFilter(self.kind, "Soulbound") then
+    if self.data.itemInfo.binding then
+      if self.data.itemInfo.binding == const.ITEM_BINDING.Soulbound then
+        category = self.data.itemInfo.binding
+      end
+    end
+  end
+
   -- Add the type filter to the category if enabled, but not to trade goods
   -- when the tradeskill filter is enabled. This makes it so trade goods are
   -- labeled as "Tailoring" and not "Tradeskill - Tailoring", which is redundent.
   if database:GetCategoryFilter(self.kind, "Type") and not
   (self.data.itemInfo.classID == Enum.ItemClass.Tradegoods and database:GetCategoryFilter(self.kind, "TradeSkill")) and
   self.data.itemInfo.itemType then
+    if category ~= "" then
+      category = category .. " - "
+    end
     category = category .. self.data.itemInfo.itemType --[[@as string]]
   end
 

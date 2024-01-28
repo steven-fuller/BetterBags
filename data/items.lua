@@ -167,6 +167,39 @@ function items:ProcessBankContainer()
 end
 
 ---@param data ItemData
+---@param bindType Enum.ItemBind
+---@return Enum.ItemBinding|nil
+function items:GetItemBinding(data, bindType)
+  if bindType == Enum.ItemBind.None then -- Does not bind, so no type
+    return nil
+  end
+  
+  -- Fetching this from Tooltip until available in future Item API
+  if bindType == Enum.ItemBind.OnAcquire then
+    return itemTooltips:GetItemBinding(data.bagid, data.slotid) --[[Enum.ItemBinding|nil]]
+  end
+  if bindType == Enum.ItemBind.OnEquip then
+    return itemTooltips:GetItemBinding(data.bagid, data.slotid) --[[Enum.ItemBinding|nil]]
+  end
+  if bindType == Enum.ItemBind.OnUse then
+    return itemTooltips:GetItemBinding(data.bagid, data.slotid) --[[Enum.ItemBinding|nil]]
+  end
+
+  if bindType == Enum.ItemBind.Quest then -- we skip this as not useful / obsolete
+    return nil
+  end
+  if bindType == Enum.ItemBind.Unused1 then
+    debug:Log("BetterBags", "Enum.ItemBind.Unused1 on itemID: ", data.itemID, "detected - API out of date")
+    return nil
+  end
+  if bindType == Enum.ItemBind.Unused2 then
+    debug:Log("BetterBags", "Enum.ItemBind.Unused2 on itemID: ", data.itemID, "detected - API out of date")
+    return nil
+  end
+  return nil
+end
+
+---@param data ItemData
 function items:AttachItemInfo(data)
   local itemMixin = Item:CreateFromBagAndSlot(data.bagid, data.slotid) --[[@as ItemMixin]]
   local itemLocation = itemMixin:GetItemLocation() --[[@as ItemLocationMixin]]
@@ -186,7 +219,6 @@ function items:AttachItemInfo(data)
   local effectiveIlvl, isPreview, baseIlvl = GetDetailedItemLevelInfo(itemID)
   data.containerInfo = C_Container.GetContainerItemInfo(bagid, slotid)
   data.questInfo = C_Container.GetContainerItemQuestInfo(bagid, slotid)
-  data.tooltipData = C_TooltipInfo.GetBagItem(bagid, slotid)
   data.itemInfo = {
     itemID = itemID,
     itemGUID = C_Item.GetItemGUID(itemLocation),
@@ -212,7 +244,7 @@ function items:AttachItemInfo(data)
     baseIlvl = baseIlvl --[[@as number]],
     itemIcon = C_Item.GetItemIconByID(itemID),
     isBound = C_Item.IsBound(itemLocation),
-    binding = itemTooltips:GetItemBinding(data.tooltipData) --[[@as Enum.TooltipDataItemBinding]],
+    binding = items:GetItemBinding(data,bindType) --[[Enum.ItemBinding|nil]],
     isLocked = C_Item.IsLocked(itemLocation),
     isNewItem = C_NewItems.IsNewItem(bagid, slotid),
     currentItemCount = C_Item.GetStackCount(itemLocation),
