@@ -139,11 +139,11 @@ const.EXPANSION_TYPE = {
 
 ---@enum ItemBinding
 const.ITEM_BINDING = {
-	Account = L:G("Account Bound"),
-	Soulbound = L:G("Soulbound"),
-	BindOnEquip = L:G("Bind on Equip"),
-	BindOnUse = L:G("Bind on Use"),
-  }
+  Account = L:G("Account Bound"),
+  Soulbound = L:G("Soulbound"),
+  BindOnEquip = L:G("Bind on Equip"),
+  BindOnUse = L:G("Bind on Use"),
+}
 
 ---@enum ItemBind
 const.ITEM_BIND = { 
